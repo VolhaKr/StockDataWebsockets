@@ -114,13 +114,14 @@ public class BitfinexDataProcessor {
 
         if (message.contains("ticker")) {
             putTicker(message);
+            System.out.println("From BitfinexDataProcessor: ticker put");
         }
 
         // !!!!!to add check for uniqueness of a pair
         if (message.startsWith("[") & (!message.contains("hb"))) {
             putProductData(message);
 
-
+            System.out.println("From BitfinexDataProcessor: productdata put");
         }
     }
 
@@ -128,7 +129,9 @@ public class BitfinexDataProcessor {
     public Double getPrice(String bitfinexProductPair) {
         if ((bitfinexProductIDDataObject.get(bitfinexProductPair) != null) & (bitfinexProductIDDataObject.get(bitfinexProductPair).getPrice() != 0)) {
             Double bitfinexPrice;
+            System.out.println("Product Pair " + bitfinexProductIDDataObject.get(bitfinexProductPair));
             bitfinexPrice = bitfinexProductIDDataObject.get(bitfinexProductPair).getPrice();
+            System.out.println("Bitfinex price "+ bitfinexPrice);
             return bitfinexPrice;
         } else {
             return null;

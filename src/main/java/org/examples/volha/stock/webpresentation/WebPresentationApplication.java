@@ -10,7 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"org.examples.volha.stock.store", "org.examples.volha.stock.datacapture"})
+@ComponentScan(basePackages = {"org.examples.volha.stock.store", "org.examples.volha.stock.datacapture", "org.examples.volha.stock.webpresentation"})
 
 //(scanBasePackages = {"org.examples.volha.stockdatacapture", "org.examples.volha.stockwebpresentation.webpresentation"})
 public class WebPresentationApplication {

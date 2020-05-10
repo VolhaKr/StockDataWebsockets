@@ -53,7 +53,7 @@ public class StockInfoController {
         productPairStatic = products.getProductPair();
         if (bitfinexConnected) {
             bitfinexClient.send(bitfinexSubscription.makeSubscrString(products.getProductPair()));
-            System.out.println("Bitfinex connected and subsription sent");
+            System.out.println("Bitfinex connected and subsription sent"+ products.getProductPair());
         }
 
 
@@ -61,6 +61,7 @@ public class StockInfoController {
             // return new StockInfo( coinbaseClient.coinbaseHashtable.get(products.getProductPair()).getPrice());
             // return new StockInfo("Hello, " + HtmlUtils.htmlEscape(products.getProductPair()+ "!"));
             return new StockInfo("Hello, " + bitfinexDataProcessor.getPrice(products.getBitfinexProductPair()) + "!");
+
         }
         /*    if ((bitfinexClient.bitfinexHashtable.get(BitfinexClient.productPairStatic)!=null)&(bitfinexClient.bitfinexHashtable.get(BitfinexClient.productPairStatic).getPrice()!=0)) {
                 return new StockInfo("|       " + products.getProductPair() + "      |      " + products.getBitfinexProductPair() + "      |      " +
@@ -69,7 +70,7 @@ public class StockInfoController {
             }
             else return  new StockInfo("|Wait a moment please");
         }*/ catch (Exception e) {
-            return new StockInfo("Some problem occuried. Incorrect data");
+            return new StockInfo("Some problem occuried. Incorrect data"+e);
 
         }
 

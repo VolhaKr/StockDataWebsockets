@@ -1,5 +1,6 @@
 package org.examples.volha.stock.datacapture;
 
+import org.examples.volha.stock.store.BitfinexDataProcessor;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -28,8 +29,10 @@ public class BitfinexClient extends StockClient {
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        System.out.println("Bitfinex opened connection");
+        System.out.println("from BitfinexClient : Bitfinex opened connection");
         bitfinexConnected = true;
+        BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
+        bitfinexDataProcessor.init();
 /*
 
             for (String product : products) {
@@ -48,7 +51,7 @@ public class BitfinexClient extends StockClient {
         if (productPairStatic != null) {
             BitfinexSubscription bitfinexSubscription = new BitfinexSubscription();
             send(bitfinexSubscription.makeSubscrString(productPairStatic));
-            System.out.println("Bitfinex sent subscription" + productPairStatic);
+            System.out.println("from BitfinexClient : Bitfinex sent subscription" + productPairStatic);
         } else {
             System.out.println("Bitfinex Waiting for input products");
         }
@@ -59,12 +62,13 @@ public class BitfinexClient extends StockClient {
     @Override
     public void onMessage(String message) {
 
-        System.out.println("!!!!!Bitfinex received: " + message);
+        System.out.println("from BitfinexClient : Bitfinex received: " + message);
 
         // BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
-        // System.out.println("BitfinexProcessor created");
-        // bitfinexDataProcessor.put(message);
-        System.out.println("BitfinexProcessor put");
+         System.out.println("from BitfinexClient : BitfinexProcessor  object created");
+        BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
+         bitfinexDataProcessor.put(message);
+        System.out.println("from BitfinexClient : BitfinexProcessor put" + message);
 
     }
 
