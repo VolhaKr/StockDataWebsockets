@@ -17,13 +17,22 @@ public class InputProducts {
     }
 
     public String getBitfinexProductPair() {
-        return bitfinexProductPair;
+        bitfinexProductPair  = "t" + productPair.substring(0,3)+productPair.substring(4);
+        //        StringBuilder convertedName = new StringBuilder(productPair);
+//        convertedName.deleteCharAt(3);
+//        convertedName.insert(0, "t");
+//        String bitfinexProductPair = convertedName.toString();
+            return bitfinexProductPair;
+        }
 
-    }
 
     public String getProductPair() {
 
         return productPair;
+    }
+
+    public String getProductPairWithoutSlash() {
+        return productPair.substring(0,3)+productPair.substring(4);
     }
 
 

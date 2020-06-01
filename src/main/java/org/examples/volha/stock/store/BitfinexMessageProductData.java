@@ -2,9 +2,23 @@ package org.examples.volha.stock.store;
 
 public class BitfinexMessageProductData {
 
-    // private String BitfinexOrCoinbase; //"Bitfinex", "Coinbase"
-    // to contain all the info in hashtables with <product_id, info>
-    private String symbol; //product_id for Coinbase, pair for Bitfinex
+    //// Trading pairs
+    //[
+    //  CHANNEL_ID,
+    //  [
+    //    BID,
+    //    BID_SIZE,
+    //    ASK,
+    //    ASK_SIZE,
+    //    DAILY_CHANGE,
+    //    DAILY_CHANGE_RELATIVE,
+    //    LAST_PRICE,
+    //    VOLUME,
+    //    HIGH,
+    //    LOW
+    //  ]
+    //]
+    private String symbol; //symbol: 'tBTCUSD'
     private Double price;
 
     public BitfinexMessageProductData(String symbol, Double price) {

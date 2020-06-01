@@ -14,7 +14,7 @@ public class BitfinexClient extends StockClient {
     public static boolean productsReceived = false;
     public static String productPairStatic = null;
     public static boolean bitfinexConnected = false;
-
+public BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
     public BitfinexClient(URI serverUri, Draft draft) {
         super(serverUri, draft);
     }
@@ -31,7 +31,6 @@ public class BitfinexClient extends StockClient {
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("from BitfinexClient : Bitfinex opened connection");
         bitfinexConnected = true;
-        BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
         bitfinexDataProcessor.init();
 /*
 
@@ -62,13 +61,12 @@ public class BitfinexClient extends StockClient {
     @Override
     public void onMessage(String message) {
 
-        System.out.println("from BitfinexClient : Bitfinex received: " + message);
+        System.out.println("from BitfinexClient : Bitfinex message received: " + message);
 
         // BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
-         System.out.println("from BitfinexClient : BitfinexProcessor  object created");
-        BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
-         bitfinexDataProcessor.put(message);
-        System.out.println("from BitfinexClient : BitfinexProcessor put" + message);
+        // System.out.println("from BitfinexClient : BitfinexProcessor  object created");
+        bitfinexDataProcessor.put(message);
+        System.out.println("from BitfinexClient : BitfinexProcessor object created,  put" + message);
 
     }
 

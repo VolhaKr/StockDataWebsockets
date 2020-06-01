@@ -13,55 +13,42 @@ import static org.examples.volha.stock.webpresentation.WebPresentationApplicatio
 
 @Controller
 public class StockInfoController {
-
-
-//    @Autowired
-//    public void setBitfinexDataProcessor(BitfinexDataProcessor bitfinexDataProcessor){
-//        this.bitfinexDataProcessor = bitfinexDataProcessor;
-//    }
-
-
-    //    @Autowired
-//    public void setBitfinexSubscription(BitfinexSubscription bitfinexSubscription){
-//        this.bitfinexSubscription = bitfinexSubscription;
-//    }
-    private final BitfinexDataProcessor bitfinexDataProcessor;
     private final BitfinexSubscription bitfinexSubscription;
-
+    // private final BitfinexDataProcessor bitfinexDataProcessor;
+       // private final InputProducts inputProducts;
     @Autowired
-    public StockInfoController(BitfinexDataProcessor bitfinexDataProcessor, BitfinexSubscription bitfinexSubscription) {
+    //public StockInfoController(BitfinexDataProcessor bitfinexDataProcessor, BitfinexSubscription bitfinexSubscription)
+    public StockInfoController(BitfinexSubscription bitfinexSubscription)
+    {
         this.bitfinexSubscription = bitfinexSubscription;
-        this.bitfinexDataProcessor = bitfinexDataProcessor;
+        //this.bitfinexDataProcessor = bitfinexDataProcessor;
+        // this.inputProducts = inputProducts;
     }
-
-    // @Autowired
-    //BitfinexDataProcessor bitfinexDataProcessor;
-//    @Autowired
-//    BitfinexSubscription bitfinexSubscription;
-////     BitfinexDataProcessor bitfinexDataProcessor;
-////    @Autowired
-////    BitfinexClient bitfinexClient;
-//
-//BitfinexDataProcessor bitfinexDataProcessor = new BitfinexDataProcessor();
     @MessageMapping("/products")
     @SendTo("/topic/stockdata")
     public StockInfo stockInfo(InputProducts products) throws Exception {
-        bitfinexDataProcessor.init();
-
-
+        //???? return???
+        //bitfinexDataProcessor.init();
         Thread.sleep(1000); // simulated delay
         productPairStatic = products.getProductPair();
+        System.out.println(" " + products.getProductPair());
         if (bitfinexConnected) {
             bitfinexClient.send(bitfinexSubscription.makeSubscrString(products.getProductPair()));
-            System.out.println("Bitfinex connected and subsription sent"+ products.getProductPair());
+            System.out.println("Bitfinex connected and subsription sent " + products.getBitfinexProductPair());
         }
-
-
         try {
             // return new StockInfo( coinbaseClient.coinbaseHashtable.get(products.getProductPair()).getPrice());
             // return new StockInfo("Hello, " + HtmlUtils.htmlEscape(products.getProductPair()+ "!"));
-            return new StockInfo("Hello, " + bitfinexDataProcessor.getPrice(products.getBitfinexProductPair()) + "!");
-
+            // return new StockInfo("Hello, " + "bitfinexDataProcessor works " +products.getBitfinexProductPair() + "!");
+            System.out.println("   ++++++This should be returned  " + products.getProductPairWithoutSlash());
+            String temp_productID;
+            System.out.println("VERYIMPORTANT!!!!   !!!++++++This should be returned  " );
+            temp_productID = products.getProductPairWithoutSlash();
+                    //+ bitfinexDataProcessor.bitfinexProductIDDataObject.get(products.getProductPairWithoutSlash()).getPrice());
+            bitfinexClient.bitfinexDataProcessor.printTest(temp_productID);
+            System.out.println("   !!!++++++This should be returned  " + bitfinexClient.bitfinexDataProcessor.getPrice(temp_productID));
+            return new StockInfo("Hello, " + bitfinexClient.bitfinexDataProcessor.getPrice(products.getProductPairWithoutSlash()) + "!");
+            // return new StockInfo("Hello, " + products.getBitfinexProductPair() + "!");
         }
         /*    if ((bitfinexClient.bitfinexHashtable.get(BitfinexClient.productPairStatic)!=null)&(bitfinexClient.bitfinexHashtable.get(BitfinexClient.productPairStatic).getPrice()!=0)) {
                 return new StockInfo("|       " + products.getProductPair() + "      |      " + products.getBitfinexProductPair() + "      |      " +
@@ -70,7 +57,7 @@ public class StockInfoController {
             }
             else return  new StockInfo("|Wait a moment please");
         }*/ catch (Exception e) {
-            return new StockInfo("Some problem occuried. Incorrect data"+e);
+            return new StockInfo("Some problem occuried. Incorrect data " + e);
 
         }
 

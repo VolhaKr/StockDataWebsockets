@@ -50,7 +50,7 @@ public class BitfinexSubscription {
         subscriptionString.addProperty("event", "subscribe");
         subscriptionString.addProperty("channel", "ticker");
         subscriptionString.addProperty("symbol", bitfinexSubscrPair);
-        System.out.println("Bitfinex opened connection" + bitfinexSubscrPair);
+        System.out.println("String for Bitfinex to open connection" + bitfinexSubscrPair);
         return subscriptionString;
     }
 
